@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     # MY ADDED APPS
     'board_room',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
