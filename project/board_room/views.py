@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.views.generic import UpdateView, ListView
+from django.views.generic import UpdateView, ListView, DeleteView
 from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
@@ -127,6 +127,14 @@ class PostUpdateView(UpdateView):
         post.updated_at = timezone.now()
         post.save()
         return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
+
+@method_decorator(login_required, name='dispatch')
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = '/'
+    pk_url_kwarg = 'post_pk'
+    context_object_name = 'post'
 
 class PostListView(ListView):
     model = Post
