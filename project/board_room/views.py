@@ -129,6 +129,14 @@ class PostUpdateView(UpdateView):
         return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
 
 @method_decorator(login_required, name='dispatch')
+class TopicDeleteView(DeleteView):
+    model = Topic
+    template_name = 'delete_topic.html'
+    success_url = '/'
+    pk_url_kwarg = 'topic_pk'
+    context_object_name = 'topic'
+
+@method_decorator(login_required, name='dispatch')
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
